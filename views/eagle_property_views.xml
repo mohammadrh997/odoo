@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="eagle_property_view_form" model="ir.ui.view">
+            <field name="name">eagle.property.form.view</field>
+            <field name="model">eagle.property</field>
+            <field name="arch" type="xml">
+                <form string="Property">
+                    <header>
+                        <button name="create_new_room" string="Create Room" type="object"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_open_room_ids" class="oe_stat_button" icon="fa-book" invisible="room_ids_count == 0">
+                                <field name="room_ids_count" string="Rooms" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name" placeholder="Enter property name..." context="{'placeholder_name': 'Enter property name...'}"/>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'default_country_id': country_id}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="usd_to_iqd_rate"/>
+                            <field name="age"/>
+                            <field name="construction_date"/>
+                            <field name="surface"/>
+                            <field name="parent_id" invisible="child_ids" />
+                        </group>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                        </group>
+                        <notebook invisible="parent_id">
+                            <page string="Child" >
+                                <field name="child_ids" >
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="construction_date"/>
+                                        <field name="surface"/>
+                                        <field name="age"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="eagle_property_view_tree" model="ir.ui.view">
+            <field name="name">eagle.property.tree.view</field>
+            <field name="model">eagle.property</field>
+            <field name="arch" type="xml">
+                <tree string="Properties">
+                    <field name="name"/>
+                    <field name="construction_date"/>
+                    <field name="surface"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+         <record id="eagle_property_action" model="ir.actions.act_window">
+            <field name="name">eagle_property</field>
+            <field name="res_model">eagle.property</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="eagle_Compounds_action" model="ir.actions.act_window">
+            <field name="name">Compounds</field>
+            <field name="res_model">eagle.property</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="context">{'placeholder_name': "New compounds"}</field>
+        </record>
+
+        <record id="eagle_Units_action" model="ir.actions.act_window">
+            <field name="name">Units</field>
+            <field name="res_model">eagle.property</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('parent_id','!=',False)]</field>
+            <field name="context">{'placeholder_name': "New Units"}</field>
+        </record>
+
+        <menuitem id="menu_eagle_estates_root" name="Eagle Estates" action="eagle_property_action" web_icon="eagle_estates,static/description/icon.png">
+            <menuitem id="menu_eagle_estates_properties_root" name="Properties" sequence="10">
+                <menuitem id="menu_eagle_estates_Compounds" action="eagle_Compounds_action"
+                          name="Compounds" sequence="10"/>
+                <menuitem id="menu_eagle_estates_Units" action="eagle_Units_action"
+                          name="Units" sequence="20"/>
+            </menuitem>
+            <menuitem id="menu_eagle_estates_room" action="eagle_property_rooms_action"
+                          name="Rooms" sequence="20"/>
+            <menuitem id="menu_eagle_estates_tag" action="eagle_tags_action"
+                          name="Tags" sequence="30"/>
+        </menuitem>
+
+    </data>
+</odoo>

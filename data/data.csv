@@ -1,0 +1,4 @@
+id,name,construction_date,street,zip,city,state_id,country_id,tag_ids,child_ids
+eagle_property_apartment_217,Apartment 217,2009-10-01,,,,,,eagle_tag_residential,
+eagle_property_apartment_9905,Apartment 9905,2010-04-24,,,,,,eagle_tag_residential,
+eagle_property_Burj_Khalifa,Burj Khalifa,2009-10-01,1 Sheikh Mohammed bin Rashid Blvd,00000,Dubai,base.state_ae_du,base.ae,"eagle_tag_residential,eagle_tag_commercial","eagle_property_apartment_217,eagle_property_apartment_9905"

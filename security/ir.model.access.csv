@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_create,perm_write,perm_unlink
+access_eagle_property,access_eagle_property,model_eagle_property,,1,1,1,1
+access_eagle_property_room,access_eagle_property_room,model_eagle_property_room,,1,1,1,1
+access_eagle_tag,access_eagle_tag,model_eagle_tag,,1,1,1,1
+access_room_area_wizard,access_room_area_wizard,model_room_area,,1,1,1,1

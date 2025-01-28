@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_eagle_property_room_form" model="ir.ui.view">
+            <field name="name">eagle.property.room.form</field>
+            <field name="model">eagle.property.room</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="calculate_area" string="Calculate Area" type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                             <group>
+                                 <field name="type"/>
+                                 <label for="street" string="address"/>
+                                 <div class="o_address_format">
+                                     <field name="street" placeholder="Street..." class="o_address_street"/>
+                                     <field name="city" placeholder="City" class="o_address_city"/>
+                                     <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'default_country_id': country_id}"/>
+                                     <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                     <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                                 </div>
+                             </group>
+                            <group>
+                            <field name="property_id"/>
+                            <field name="surface"/>
+                            <field name="construction_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_eagle_property_room_tree" model="ir.ui.view">
+            <field name="name">eagle.property.room.tree</field>
+            <field name="model">eagle.property.room</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="type"/>
+                    <field name="surface"/>
+                    <field name="property_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="eagle_property_rooms_action" model="ir.actions.act_window">
+            <field name="name">Rooms</field>
+            <field name="res_model">eagle.property.room</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

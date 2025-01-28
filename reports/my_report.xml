@@ -1,0 +1,72 @@
+<odoo>
+    <record id="my_report" model="ir.actions.report">
+        <field name="name">Get My report</field>
+        <field name="model">eagle.property</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">eagle_estates.my_report_view</field>
+        <field name="report_file">eagle_estates.my_report_view</field>
+        <field name="binding_model_id" ref="model_eagle_property"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_us"/>
+    </record>
+<template id="eagle_estates.my_report_view">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="eagle">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <!-- Report Header -->
+                    <div class="text-center" style="margin-bottom: 20px;">
+                        <h1 style="font-size: 24px; font-weight: bold; color: #4CAF50;">Eagle Estates Report</h1>
+                    </div>
+
+                    <!-- Report Content -->
+                    <div>
+                        <!-- Display single fields -->
+                        <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 30%; font-weight: bold;">Name:</td>
+                                <td><span t-field="eagle.name" /></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Construction Date:</td>
+                                <td><span t-field="eagle.construction_date" /></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Surface Area:</td>
+                                <td><span t-field="eagle.surface" /> m²</td>
+                            </tr>
+                        </table>
+
+                        <!-- Display related records (room_ids) -->
+                        <p style="font-size: 18px; font-weight: bold; margin-top: 20px; color: #333;">Room Details:</p>
+                        <table style="width: 100%; border: 1px solid #ddd; border-collapse: collapse;">
+                            <thead style="background-color: #f2f2f2; font-weight: bold;">
+                                <tr>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Room Type</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Surface Area</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Property</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="eagle.room_ids" t-as="room">
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <span t-field="room.type" />
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <span t-field="room.surface" /> m²
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">
+                                            <span t-field="room.property_id" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</odoo>
